@@ -15,6 +15,16 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_table');
+            $table->foreignId('id_package');
+            $table->string('name');
+            $table->string('phone_number');
+            $table->string('email');
+            $table->date('date');
+            $table->time('time');
+            $table->time('end_time');
+            $table->integer('duration');
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

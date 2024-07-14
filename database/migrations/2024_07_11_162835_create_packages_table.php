@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('category', ['pelajar', 'reguler']);
             $table->string('description');
             $table->integer('price');
+            $table->integer('duration');
             $table->enum('time', ['siang', 'malam']);
             $table->boolean('status')->default(true);
             $table->timestamps();

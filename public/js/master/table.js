@@ -6,18 +6,15 @@ $(document).ready(function () {
     });
 });
 
-const DTMasterPackage = () => {
-    NioApp.DataTable('#tablePackage', {
+const DTMasterTable = () => {
+    NioApp.DataTable('#tableTable', {
         processing: true,
         serverSide: true,
         bDestroy: true,
-        ajax: "/DTMasterPackage",
+        ajax: "/DTMasterTable",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', width: '5%'},
-            {data: 'category', name: 'category', class: 'text-center', width: '10%'},
-            {data: 'description', name: 'description', class: 'text-center', width: '25%'},
-            {data: 'price', name: 'price', class: 'text-center', width: '10%'},
-            {data: 'time', name: 'time', class: 'text-center', width: '15%'},
+            {data: 'description', name: 'description', class: 'text-center', width: '90%'},
             {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center', width:'5%'},
         ],
         responsive: {
@@ -26,49 +23,37 @@ const DTMasterPackage = () => {
     });
 }
 
-DTMasterPackage();
+DTMasterTable();
 
-const clearFormPackage = () => {
-    $('#formPackage').trigger('reset');
-    $('#idPackage').val('');
+const clearFormTable = () => {
+    $('#formTable').trigger('reset');
+    $('#idTable').val('');
 }
 
-const showMasterPackage = () => {
-    clearFormPackage();
-    $('#modalMasterPackage').modal('show');
+const showMasterTable = () => {
+    clearFormTable();
+    $('#modalMasterTable').modal('show');
 }
 
-const hideMasterPackage = () => {
-    clearFormPackage();
-    $('#modalMasterPackage').modal('hide');
+const hideMasterTable = () => {
+    clearFormTable();
+    $('#modalMasterTable').modal('hide');
 }
 
-const editMasterPackage = (id_package) => {
-    clearFormPackage();
+const editMasterTable = (id_table) => {
+    clearFormTable();
     $.ajax({
         type: 'GET',
-        url: '/gtMasterPackage',
+        url: '/gtMasterTable',
         data: {
-            id: id_package
+            id: id_table
         },
         dataType: 'JSON',
         async: false,
         cache: false,
         success: function (response) {
-            $('#modalMasterPackage').modal('show');
-            $('#idPackage').val(response.id);
-            $('#inputPrice').val(response.price);
-            $('#inputDuration').val(response.duration);
-            if(response.category === "pelajar"){
-                $('#radioPelajar').prop('checked',true);
-            } else if (response.category === "reguler"){
-                $('#radioReguler').prop('checked',true);
-            }
-            if(response.time === "siang"){
-                $('#radioSiang').prop('checked',true);
-            } else if (response.status === "malam"){
-                $('#radioMalam').prop('checked',true);
-            }
+            $('#modalMasterTable').modal('show');
+            $('#idTable').val(response.id);
             $('#inputDescription').val(response.description);
         },
         error: function (error) {
@@ -82,7 +67,7 @@ const editMasterPackage = (id_package) => {
     });
 }
 
-const deleteMasterPackage = (id_package) => {
+const deleteMasterTable = (id_table) => {
     Swal.fire({
         title: 'Are you sure ?',
         text: 'You will delete this data',
@@ -95,9 +80,9 @@ const deleteMasterPackage = (id_package) => {
         if(result.isConfirmed) {
             $.ajax({
                 type: 'GET',
-                url: '/deleteMasterPackage',
+                url: '/deleteMasterTable',
                 data: {
-                    id: id_package
+                    id: id_table
                 },
                 dataType: 'JSON',
                 async: false,
@@ -109,7 +94,7 @@ const deleteMasterPackage = (id_package) => {
                         timer: 3000,
                         showConfirmButton: false
                     });
-                    DTMasterPackage();
+                    DTMasterTable();
                 },
                 error: function (error) {
                     Swal.fire({
@@ -124,13 +109,13 @@ const deleteMasterPackage = (id_package) => {
     })   
 }
 
-$("#formPackage").submit(function(event) {
+$("#formTable").submit(function(event) {
     event.preventDefault();
-    dataFormPackage = new FormData($(this)[0]);
+    dataFormTable = new FormData($(this)[0]);
     $.ajax({
         type: "POST",
-        url: "/processMasterPackage",
-        data: dataFormPackage,
+        url: "/processMasterTable",
+        data: dataFormTable,
         dataType: "JSON",
         async: false,
         cache: false,
@@ -148,10 +133,10 @@ $("#formPackage").submit(function(event) {
                 icon: 'success',
                 timer: 3000,
                 showConfirmButton: false,
-                onAfterClose: () => $('#modalMasterPackage').modal('hide')
+                onAfterClose: () => $('#modalMasterTable').modal('hide')
             });
-            DTMasterPackage();
-            clearFormPackage();
+            DTMasterTable();
+            clearFormTable();
         },
         error: function (error) {
             Swal.fire({
