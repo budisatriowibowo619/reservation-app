@@ -91,25 +91,25 @@
                                                 <div class="form-group">
                                                     <div class="form-control-wrap">
 
-                                                    <span class="preview-title-lg overline-title">Package</span>
+                                                    <span class="preview-title-lg overline-title">Reservation Form</span>
 
                                                         <div class="row gy-4">
 
                                                             <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                    <label class="form-label" for="inputCategory">Category</label>
+                                                                    <label class="form-label" for="inputChoosePackage">Choose Package</label>
                                                                     <div class="form-control-wrap">
                                                                         <ul class="custom-control-group">    
                                                                             <li>       
-                                                                                <div class="custom-control custom-control-sm custom-radio custom-control-pro">            
-                                                                                    <input type="radio" class="custom-control-input" name="category" id="radioPelajar" value="pelajar" required>            
-                                                                                    <label class="custom-control-label" for="radioPelajar">Pelajar</label>       
+                                                                                <div class="custom-control custom-control-md custom-radio custom-control-pro no-control">            
+                                                                                    <input type="radio" class="custom-control-input choose-package" name="choosePackage" id="radioPackage" value="package" required>            
+                                                                                    <label class="custom-control-label" for="radioPackage"><em class="icon ni ni-check"></em>&nbsp;Package</label>       
                                                                                 </div>  
                                                                             </li>   
                                                                             <li>       
-                                                                                <div class="custom-control custom-control-sm custom-radio custom-control-pro">            
-                                                                                    <input type="radio" class="custom-control-input" name="category" id="radioReguler" value="reguler">            
-                                                                                    <label class="custom-control-label" for="radioReguler">Reguler</label>       
+                                                                                <div class="custom-control custom-control-md custom-radio custom-control-pro no-control">            
+                                                                                    <input type="radio" class="custom-control-input choose-non-package" name="choosePackage" id="radioNonPackage" value="non-package">            
+                                                                                    <label class="custom-control-label" for="radioNonPackage"><em class="icon ni ni-cross"></em>&nbsp;Non-Package</label>       
                                                                                 </div>  
                                                                             </li>   
                                                                         </ul>
@@ -117,7 +117,49 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-3">
+                                                            <div class="col-sm-8">
+                                                                <div class="form-group">
+                                                                    <label class="form-label" for="inputCategory">Category</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <ul class="custom-control-group">    
+                                                                            <li>       
+                                                                                <div class="custom-control custom-control-md custom-radio custom-control-pro no-control">            
+                                                                                    <input type="radio" class="custom-control-input" name="category" id="radioPelajar" value="pelajar" required>            
+                                                                                    <label class="custom-control-label" for="radioPelajar">
+                                                                                        <em class="icon ni ni-user-alt"></em>&nbsp;
+                                                                                        Pelajar
+                                                                                    </label>       
+                                                                                </div>  
+                                                                            </li>   
+                                                                            <li>       
+                                                                                <div class="custom-control custom-control-md custom-radio custom-control-pro no-control">            
+                                                                                    <input type="radio" class="custom-control-input" name="category" id="radioReguler" value="reguler">            
+                                                                                    <label class="custom-control-label" for="radioReguler">
+                                                                                        <em class="icon ni ni-user-alt-fill"></em>&nbsp;
+                                                                                        Reguler
+                                                                                    </label>       
+                                                                                </div>  
+                                                                            </li>   
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div id="__containPackage" style="display:none;">
+                                                                <div class="col-sm-12">
+                                                                    <div class="form-group">
+                                                                        <label for="inputPackage" class="form-label">Package</label>
+                                                                        <div class="form-control-wrap">
+                                                                            <div class="form-icon form-icon-left">
+                                                                                <em class="icon ni ni-money"></em>
+                                                                            </div>
+                                                                            <select name="package" id="id-package" class="form-control"></select>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-sm-8">
                                                                 <div class="form-group">
                                                                     <label for="inputTable" class="form-label">Table</label>
                                                                     <div class="form-control-wrap">
@@ -129,14 +171,14 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="col-sm-5">
+                                                            <div class="col-sm-4">
                                                                 <div class="form-group">
-                                                                    <label for="inputPackage" class="form-label">Package</label>
+                                                                    <label for="inputDuration" class="form-label">Duration</label>
                                                                     <div class="form-control-wrap">
                                                                         <div class="form-icon form-icon-left">
-                                                                            <em class="icon ni ni-money"></em>
+                                                                            <em class="icon ni ni-clock"></em>
                                                                         </div>
-                                                                        <select name="package" id="id-package" class="form-control"></select>
+                                                                        <input type="number" name="duration" class="form-control" id="id-duration" placeholder="Duration" required>
                                                                     </div>
                                                                 </div>
                                                             </div>

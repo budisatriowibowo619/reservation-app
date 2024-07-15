@@ -63,6 +63,16 @@ $(document).ready(function () {
     });
 });
 
+$('.choose-package').change(function () {
+    $('#__containPackage').show('normal');
+    $('#id-duration').attr("disabled", true);
+});
+
+$('.choose-non-package').change(function () {
+    $('#__containPackage').hide('normal');
+    $('#id-duration').attr("disabled", false);
+});
+
 $('#id-package').select2({
     placeholder: '- Select Package -',
     // allowClear: true,
