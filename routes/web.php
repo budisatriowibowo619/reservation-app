@@ -30,6 +30,7 @@ Route::get('/', [ReservationController::class, 'index']);
 
     Route::get('/listReservation', [ReservationController::class, 'page_reservation_list']);
     Route::get('/DTReservationList', [ReservationController::class, 'ajax_dt_reservation_list']);
+    Route::get('/cancelReservation', [ReservationController::class, 'ajax_cancel_reservation']);
 
 # End Reservation #
 

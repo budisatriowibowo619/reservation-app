@@ -63,14 +63,30 @@ $(document).ready(function () {
     });
 });
 
+$('input[type=radio][name=time]').change(function() {
+    hitungTotalCost();
+});
+
+$('input[type=radio][name=category]').change(function() {
+    hitungTotalCost();
+});
+
 $('.choose-package').change(function () {
     $('#__containPackage').show('normal');
     $('#id-duration').attr("disabled", true);
+    $('#id-duration').val(0);
+    $('#total-cost').val(0);
+    $('#id-total-cost').val(0);
+    hitungTotalCost();
 });
 
 $('.choose-non-package').change(function () {
     $('#__containPackage').hide('normal');
     $('#id-duration').attr("disabled", false);
+    $('#id-duration').val(0);
+    $('#total-cost').val(0);
+    $('#id-total-cost').val(0);
+    hitungTotalCost();
 });
 
 $('#id-package').select2({
@@ -92,6 +108,80 @@ $('#id-package').select2({
         delay: 500
     }
 });
+
+$('#id-package').change(function() {
+    
+    let package_id  = $('#id-package').val();
+
+    $.ajax({
+        type: 'GET',
+        url: '/gtMasterPackage',
+        data: {
+            id: package_id
+        },
+        dataType: 'JSON',
+        async: false,
+        cache: false,
+        success: function (response) {
+            $('#id-duration').val(response.duration);
+            var output = 'Rp. '+(response.price/1000).toFixed(3);
+            $('#total-cost').val(output);
+            $('#id-total-cost').val(response.price);
+        },
+        error: function (error) {
+            Swal.fire({
+                title: 'Terjadi kesalahan saat mengambil data!',
+                text: error.responseText, 
+                icon: 'error',
+                showConfirmButton: false
+            });
+        }
+    });
+    
+});
+
+$("#id-duration").on("input", function(){
+
+    hitungTotalCost();
+    
+});
+
+const hitungTotalCost = () => {
+
+    var time = $("input[name='time']:checked").val();
+    var duration = $('#id-duration').val();
+
+    var total_cost = 0;
+
+    if($("input[name='choosePackage']:checked").val() == 'non-package') {
+
+        if(time >= '17:30'){
+            var harga_reguler = 25000;
+            var harga_pelajar = 17500;
+
+            if($("input[name='category']:checked").val() == 'reguler'){
+                total_cost = harga_reguler*duration;
+            } else {
+                total_cost = harga_pelajar*duration;
+            }
+        } else {
+            var harga_reguler = 35000;
+            var harga_pelajar = 22500;
+
+            if($("input[name='category']:checked").val() == 'reguler'){
+                total_cost = harga_reguler*duration;
+            } else {
+                total_cost = harga_pelajar*duration;
+            }
+        }
+
+        var output = 'Rp. '+(total_cost/1000).toFixed(3);
+        $('#total-cost').val(output);
+        $('#id-total-cost').val(total_cost);
+
+    }
+
+}
 
 $('#id-table').select2({
     placeholder: '- Select Table -',

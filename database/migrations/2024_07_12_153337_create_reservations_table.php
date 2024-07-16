@@ -24,6 +24,7 @@ return new class extends Migration
             $table->time('time');
             $table->time('end_time');
             $table->integer('duration');
+            $table->integer('total_cost');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

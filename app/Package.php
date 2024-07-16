@@ -23,7 +23,7 @@ class Package extends Model
         $condition = '';
 
         $condition_time = '';
-        if($time >= '17:00'){
+        if($time >= '17:30'){
             $condition_time = 'malam';
         } else {
             $condition_time = 'siang';

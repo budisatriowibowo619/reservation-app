@@ -16,9 +16,10 @@ const DTReservationList = () => {
             {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', width: '5%'},
             {data: 'name', name: 'name', class: 'text-center', width: '10%'},
             {data: 'phone_number', name: 'phone_number', class: 'text-center', width: '10%'},
-            {data: 'package', name: 'package', class: 'text-center', width: '20%'},
-            {data: 'tablename', name: 'tablename', class: 'text-center', width: '20%'},
+            {data: 'package', name: 'package', class: 'text-center', width: '15%'},
+            {data: 'tablename', name: 'tablename', class: 'text-center', width: '15%'},
             {data: 'date_time', name: 'date_time', class: 'text-center', width: '10%'},
+            {data: 'total_cost', name: 'total_cost', class: 'text-center', width: '10%'},
             {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center', width:'5%'},
         ],
         responsive: {
@@ -29,10 +30,10 @@ const DTReservationList = () => {
 
 DTReservationList();
 
-const deleteMasterTable = (id_table) => {
+const cancelReservation = (id_reservation) => {
     Swal.fire({
         title: 'Are you sure ?',
-        text: 'You will delete this data',
+        text: 'You will cancel this reservation',
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
@@ -42,9 +43,9 @@ const deleteMasterTable = (id_table) => {
         if(result.isConfirmed) {
             $.ajax({
                 type: 'GET',
-                url: '/deleteMasterTable',
+                url: '/cancelReservation',
                 data: {
-                    id: id_table
+                    id: id_reservation
                 },
                 dataType: 'JSON',
                 async: false,
@@ -56,7 +57,7 @@ const deleteMasterTable = (id_table) => {
                         timer: 3000,
                         showConfirmButton: false
                     });
-                    DTReservationList();
+                    DTRekapitulasiKendaraan();
                 },
                 error: function (error) {
                     Swal.fire({

@@ -35,6 +35,7 @@
                                                 <th>Package</th>
                                                 <th>Table</th>
                                                 <th>Date Time</th>
+                                                <th>Total Cost</th>
                                                 <th>#</th>
                                             </tr>
                                             <tbody></tbody>

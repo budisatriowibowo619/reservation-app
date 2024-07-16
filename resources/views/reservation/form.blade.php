@@ -178,7 +178,7 @@
                                                                         <div class="form-icon form-icon-left">
                                                                             <em class="icon ni ni-clock"></em>
                                                                         </div>
-                                                                        <input type="number" name="duration" class="form-control" id="id-duration" placeholder="Duration" required>
+                                                                        <input type="number" name="duration" class="form-control" id="id-duration" placeholder="Duration" value="0" required>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -219,6 +219,37 @@
                                                                 </div>
                                                             </div>
 
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card-inner border-top">
+                                        <div class="row g-gs">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="form-control-wrap">
+
+                                                        <div class="row gy-4">
+
+                                                            <div class="col-sm-8"></div>
+
+                                                            <div class="col-sm-4">
+                                                                <div class="form-group">
+                                                                    <label for="inputEmail" class="form-label">Total Cost</label>
+                                                                    <div class="form-control-wrap">
+                                                                        <div class="form-icon form-icon-left">
+                                                                            <em class="icon ni ni-money"></em>
+                                                                        </div>
+                                                                        <input type="text" class="form-control" id="total-cost" placeholder="Total Cost" required disabled>
+                                                                        <input type="hidden" name="total_cost" id="id-total-cost">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            
                                                             <div class="col-sm-12">
                                                                 <ul class="d-flex gx-4 mt-1">
                                                                     <li>

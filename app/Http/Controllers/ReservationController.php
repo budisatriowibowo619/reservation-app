@@ -54,10 +54,11 @@ class ReservationController extends Controller
                 'time'          => 'required',
                 'category'      => 'required',
                 'table'         => 'required',
-                'package'       => 'required',
                 'name'          => 'required',
                 'email'         => 'required',
-                'phone_number'  => 'required'
+                'phone_number'  => 'required',
+                // 'package'       => 'required',
+                'duration'      => 'required'
             ]);
 
             if($validator->fails()) return response()->json(implode(',',$validator->errors()->all()), 422);
@@ -66,7 +67,8 @@ class ReservationController extends Controller
                 'table'     => $request->table,
                 'package'   => $request->package,
                 'date'      => $request->date,
-                'time'      => $request->time
+                'time'      => $request->time,
+                'duration'  => $request->duration
             ]);
 
             if(!empty($check_availability)){
@@ -79,19 +81,20 @@ class ReservationController extends Controller
 
             } else {
 
-                $get_duration = Reservation::get_duration_package($request->package);
+                // $get_duration = Reservation::get_duration_package($request->package);
 
                 Reservation::create(
                 [
                     'date'          => $request->date,
                     'time'          => $request->time,
                     'id_table'      => $request->table,
-                    'id_package'    => $request->package,
+                    'id_package'    => ($request->package) ? $request->package : 0,
                     'name'          => $request->name,
                     'email'         => $request->email,
                     'phone_number'  => $request->phone_number,
-                    'end_time'      => date('H:i:s', (strtotime($request->time) + 60*60*$get_duration)),
-                    'duration'      => 0
+                    'end_time'      => date('H:i:s', (strtotime($request->time) + 60*60*$request->duration)),
+                    'duration'      => $request->duration,
+                    'total_cost'    => $request->total_cost
                 ]);
 
                 // return response()->json([
@@ -122,11 +125,33 @@ class ReservationController extends Controller
             $DT_list_reservation = Datatables::of($gt_list_reservation)
                                     ->addIndexColumn()
                                     ->addColumn('action', function($row){
-                                        $button = ' <a href="#" onClick="cancelReservation('.$row->id.')" class="btn btn-icon btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><em class="icon ni ni-trash"></em></a>';
-                                        return $button;
+                                        if($row->status == 1) {
+                                            $button = ' <a href="#" onClick="cancelReservation('.$row->id.')" class="btn btn-icon btn-sm btn-danger" data-bs-toggle="tooltip" data-bs-placement="top" title="Delete"><em class="icon ni ni-trash"></em></a>';
+                                            return $button;
+                                        } else if ($row->status == 0){
+                                            return '<span class="badge rounded-pill bg-outline-danger">Cancelled</span>';
+                                        }
                                     })->rawColumns(['action'])->make(true);
 
             return $DT_list_reservation;
+        }
+    }
+
+    public static function ajax_cancel_reservation(Request $request)
+    {
+        if($request->ajax()) {
+            $validator = Validator::make($request->all(), [
+                'id'   => 'required'
+            ]);
+
+            if($validator->fails()) return response()->json(implode(',',$validator->errors()->all()), 422);
+
+            Reservation::where('id', $request->id)->update(['status' => 0]);
+
+            return response()->json([
+                'success'   => TRUE,
+                'message'   => 'Reservation has been cancelled'
+            ]);
         }
     }
 

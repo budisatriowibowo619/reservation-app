@@ -15,16 +15,17 @@ class Reservation extends Model
     public static function check_reservation_availability($params = [])
     {
         $table = isset($params['table']) ? $params['table'] : 0;
-        $package = isset($params['package']) ? $params['package'] : 0;
+        // $package = isset($params['package']) ? $params['package'] : 0;
         $date = isset($params['date']) ? $params['date'] : '';
         $time = isset($params['time']) ? $params['time'] : '';
+        $duration = isset($params['duration']) ? $params['duration'] : 0;
 
         $condition = '';
 
-        $gt_packages = DB::table('packages')->where(['id' => $package])->first();
+        // $gt_packages = DB::table('packages')->where(['id' => $package])->first();
 
         $start_time = $time;
-        $end_time = date('H:i', (strtotime($time) + 60*60*$gt_packages->duration));
+        $end_time = date('H:i', (strtotime($time) + 60*60*$duration));
 
         $query = static::select('id')
                         ->where('status','=',1)
@@ -39,11 +40,19 @@ class Reservation extends Model
                         })
                         // ->whereBetween('time', [$start_time, $end_time])
                         // ->orWhereBetween('esnd_time', [$start_time, $end_time])
-                        ->whereRaw('( 
-                            (time BETWEEN "' . $start_time . '" AND "' . $end_time . '") or
-                            (end_time BETWEEN "' . $start_time . '" AND "' . $end_time . '")
+                        // ->whereRaw('( 
+                        //         (time BETWEEN "' . $start_time . '" AND "' . $end_time . '") or
+                        //         (end_time BETWEEN "' . $start_time . '" AND "' . $end_time . '")
+                        //     )
+                        // ')
+                        ->whereRaw(
+                            '( 
+                                ("' . $start_time . '" BETWEEN  time AND end_time) or
+                                ("' . $end_time . '" BETWEEN time AND end_time)
                             )
-                        ');
+                        '
+                        )
+                        ;
         
         $response = $query->first();
 
@@ -59,10 +68,11 @@ class Reservation extends Model
 
     public static function gt_reservation_list()
     {
-        $query = static::select('reservations.*', DB::raw('CONCAT(packages.description) as package'),DB::raw('CONCAT(tables.description) as tablename'),DB::raw('CONCAT(reservations.date," Jam ",reservations.time," s/d ",reservations.end_time) as date_time'))
-                        ->Join('packages','packages.id', '=', 'reservations.id_package')
+        $query = static::select('reservations.*', DB::raw('CONCAT(IFNULL(packages.description,"Non-Package")) as package'),DB::raw('CONCAT(tables.description) as tablename'),DB::raw('CONCAT(reservations.date," Jam ",reservations.time," s/d ",reservations.end_time) as date_time'))
+                        ->leftJoin('packages','packages.id', '=', 'reservations.id_package')
                         ->Join('tables','tables.id', '=', 'reservations.id_table')
-                        ->where('reservations.status','=',1)->get();
+                        // ->where('reservations.status','=',1)
+                        ->get();
 
         return $query;
     }
