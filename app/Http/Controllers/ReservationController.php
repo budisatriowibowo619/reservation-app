@@ -6,6 +6,9 @@ use App\Reservation;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Validator;
+use DateTime;
+use DateInterval;
+use DatePeriod;
 
 class ReservationController extends Controller
 {
@@ -14,6 +17,15 @@ class ReservationController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function index()
+    {
+        return view('dashboard', [
+            'page'      => 'Dashboard',
+            'js_script' => ''
+        ]);
+    }
+     
     public function page_master_reservation_form()
     {
         $dt_date = [];
@@ -21,18 +33,40 @@ class ReservationController extends Controller
         $now = date('Y-m-d');
         $_6daysafter = date('Y-m-d', strtotime('+7 days', strtotime(date('Y-m-d'))));
 
-        for ($i = $now; $i <= $_6daysafter; $i++){
-            $date = date('d', strtotime($i));
-            $day = date('l', strtotime($i));
-            $month = date('F', strtotime($i));
+        $begin = new DateTime(date('Y-m-d'));
+        $end = new DateTime(date('Y-m-d', strtotime('+8 days', strtotime(date('Y-m-d')))));
+
+        $interval = DateInterval::createFromDateString('1 day');
+        $period = new DatePeriod($begin, $interval, $end);
+
+        foreach ($period as $dt) {
+            $i = $dt->format("Y-m-d");
+            $date = $dt->format("d");
+            $day = $dt->format("l");
+            $month = $dt->format("F");
 
             $dt_date[] = [
                 'date'  => $date,
                 'day'   => $day,
                 'month' => $month,
                 'full_date' => $i
-            ];        
+            ];     
         }
+
+        // dd($dt_date);
+        // exit;
+        // for ($i = $now; $i <= $_6daysafter; $i++){
+        //     $date = date('d', strtotime($i));
+        //     $day = date('l', strtotime($i));
+        //     $month = date('F', strtotime($i));
+
+        //     $dt_date[] = [
+        //         'date'  => $date,
+        //         'day'   => $day,
+        //         'month' => $month,
+        //         'full_date' => $i
+        //     ];        
+        // }
 
         $dt_time = [
             '13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','00:00','01:00'
