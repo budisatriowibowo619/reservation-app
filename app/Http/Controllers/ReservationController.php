@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reservation;
+use App\Dashboard;
 use Illuminate\Http\Request;
 use DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -20,9 +21,11 @@ class ReservationController extends Controller
 
     public function index()
     {
+        $total_reservations = Dashboard::query_total_reservation();
         return view('dashboard', [
             'page'      => 'Dashboard',
-            'js_script' => ''
+            'js_script' => '',
+            'total'     => $total_reservations
         ]);
     }
      
@@ -86,7 +89,7 @@ class ReservationController extends Controller
             $validator = Validator::make($request->all(), [
                 'date'          => 'required',
                 'time'          => 'required',
-                'category'      => 'required',
+                // 'category'      => 'required',
                 'table'         => 'required',
                 'name'          => 'required',
                 'email'         => 'required',

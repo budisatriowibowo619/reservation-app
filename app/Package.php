@@ -18,7 +18,7 @@ class Package extends Model
         $limit = isset($params['limit']) ? $params['limit'] : 20;
         $search = isset($params['search']) ? $params['search'] : '';
         $time = isset($params['time']) ? $params['time'] : '';
-        $category = isset($params['category']) ? $params['category'] : '';
+        // $category = isset($params['category']) ? $params['category'] : '';
 
         $condition = '';
 
@@ -29,7 +29,7 @@ class Package extends Model
             $condition_time = 'siang';
         }
 
-        $query = static::select('id', DB::raw('CONCAT("Paket ",category," - ",description," - ",duration," Jam") as text'))
+        $query = static::select('id', DB::raw('CONCAT("Paket :"," ",description," - ",duration," Jam") as text'))
                         ->where('status','=',1)
                         ->where(function ($query) use ($search) {
                             $query->where('description','like','%'.$search.'%');
@@ -37,9 +37,9 @@ class Package extends Model
                         ->where(function ($query) use ($condition_time) {
                             if(!empty($condition_time)) $query->where('time','=',$condition_time);
                         })
-                        ->where(function ($query) use ($category) {
-                            if(!empty($category)) $query->where('category','=',$category);
-                        })
+                        // ->where(function ($query) use ($category) {
+                        //     if(!empty($category)) $query->where('category','=',$category);
+                        // })
                         // ->whereNotExists(function ($query) use ($tanggal) {
                         //     $query->select('peminjaman_kendaraan.id')
                         //             ->from('peminjaman_kendaraan')

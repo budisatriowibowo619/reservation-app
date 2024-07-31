@@ -60,7 +60,7 @@ class PackageController extends Controller
         if($request->ajax()) {
 
             $validator = Validator::make($request->all(), [
-                'category'      => 'required',
+                // 'category'      => 'required',
                 'description'   => 'required',
                 'price'         => 'required',
                 'time'          => 'required',
@@ -125,7 +125,7 @@ class PackageController extends Controller
                 'limit'     => $limit,
                 'search'    => $request->search,
                 'time'      => $request->time,
-                'category'  => $request->category
+                // 'category'  => $request->category
             ]);
 
             $response = [

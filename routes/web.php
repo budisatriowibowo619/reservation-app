@@ -16,7 +16,7 @@ use App\Http\Controllers\TableController;
 |
 */
 
-Route::get('/', [ReservationController::class, 'index']);
+Route::get('/dashboard', [ReservationController::class, 'index']);
 
 # Page#
 

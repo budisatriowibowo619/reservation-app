@@ -14,8 +14,8 @@ const DTMasterPackage = () => {
         ajax: "/DTMasterPackage",
         columns: [
             {data: 'DT_RowIndex', name: 'DT_RowIndex', class: 'text-center', width: '5%'},
-            {data: 'category', name: 'category', class: 'text-center', width: '10%'},
-            {data: 'description', name: 'description', class: 'text-center', width: '25%'},
+            // {data: 'category', name: 'category', class: 'text-center', width: '10%'},
+            {data: 'description', name: 'description', class: 'text-center', width: '35%'},
             {data: 'price', name: 'price', class: 'text-center', width: '10%'},
             {data: 'time', name: 'time', class: 'text-center', width: '15%'},
             {data: 'action', name: 'action', orderable: false, searchable: false, class: 'text-center', width:'5%'},

@@ -118,6 +118,7 @@
                                                             </div>
 
                                                             <div class="col-sm-8">
+                                                                <div id="__containCategory" style="display:none;">
                                                                 <div class="form-group">
                                                                     <label class="form-label" for="inputCategory">Category</label>
                                                                     <div class="form-control-wrap">
@@ -142,6 +143,7 @@
                                                                             </li>   
                                                                         </ul>
                                                                     </div>
+                                                                </div>
                                                                 </div>
                                                             </div>
 
@@ -256,7 +258,7 @@
                                                                         <button type="reset" class="btn btn-danger btn-dim"><em class="icon ni ni-setting"></em><span>Reset</span></button>
                                                                     </li>
                                                                     <li>
-                                                                        <button id="btn-reservation" type="submit" class="btn btn-primary"><em class="icon ni ni-save"></em><span>Submit</span></button>
+                                                                        <button id="btn-reservation" type="submit" class="btn btn-primary"><em class="icon ni ni-save"></em><span>Check Reservation</span></button>
                                                                     </li>
                                                                 </ul>
                                                             </div>

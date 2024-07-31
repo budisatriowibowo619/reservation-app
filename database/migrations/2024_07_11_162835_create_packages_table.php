@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('packages', function (Blueprint $table) {
             $table->id();
-            $table->enum('category', ['pelajar', 'reguler']);
+            // $table->enum('category', ['pelajar', 'reguler']);
             $table->string('description');
             $table->integer('price');
             $table->integer('duration');

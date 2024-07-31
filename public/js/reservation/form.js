@@ -26,17 +26,35 @@ $(document).ready(function () {
             },
             success: function (response) {
                 if(response == true) {
+                    // Swal.fire({
+                    //     icon: 'success',
+                    //     title: 'Reservation succesfully booked',
+                    //     timer: 2000,
+                    //     showCancelButton: false,
+                    //     showConfirmButton: false,
+                    //     allowOutsideClick: false,
+                    // });
+                    // setTimeout(function() {
+                    //     location.reload();
+                    // }, 2000);
                     Swal.fire({
-                        icon: 'success',
-                        title: 'Reservation succesfully booked',
-                        timer: 2000,
-                        showCancelButton: false,
-                        showConfirmButton: false,
-                        allowOutsideClick: false,
-                    });
-                    setTimeout(function() {
-                        location.reload();
-                    }, 2000);
+                            title: "Terms and conditions",
+                            input: "checkbox",
+                            inputValue: 1,
+                            inputPlaceholder: `
+                                I agree with the terms and conditions
+                            `,
+                            confirmButtonText: `
+                                Continue&nbsp;<i class="icon ni ni-arrow-right"></i>
+                            `,
+                            inputValidator: (result) => {
+                                return !result && "You need to agree with T&C";
+                            }
+                        }).then((result) => {
+                            if(result) {
+                                Swal.fire("You agreed with T&C :)");
+                            }
+                        });
                 } else {
                     Swal.fire({
                         icon: 'error',
@@ -73,7 +91,8 @@ $('input[type=radio][name=category]').change(function() {
 
 $('.choose-package').change(function () {
     $('#__containPackage').show('normal');
-    $('#id-duration').attr("disabled", true);
+    $('#__containCategory').hide('normal');
+    $('#id-duration').attr("readonly", true);
     $('#id-duration').val(0);
     $('#total-cost').val(0);
     $('#id-total-cost').val(0);
@@ -82,7 +101,8 @@ $('.choose-package').change(function () {
 
 $('.choose-non-package').change(function () {
     $('#__containPackage').hide('normal');
-    $('#id-duration').attr("disabled", false);
+    $('#__containCategory').show('normal');
+    $('#id-duration').attr("readonly", false);
     $('#id-duration').val(0);
     $('#total-cost').val(0);
     $('#id-total-cost').val(0);
@@ -100,7 +120,7 @@ $('#id-package').select2({
                 search: params.term,
                 page: params.page || 1,
                 time: $("input[name='time']:checked").val(),
-                category: $("input[name='category']:checked").val()
+                // category: $("input[name='category']:checked").val()
             }
 
             return query;

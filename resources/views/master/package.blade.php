@@ -33,7 +33,7 @@
                                         <thead>
                                             <tr class="text-center">
                                                 <th>No</th>
-                                                <th>Category</th>
+                                                {{-- <th>Category</th> --}}
                                                 <th>Description</th>
                                                 <th>Price</th>
                                                 <th>Time</th>
@@ -68,7 +68,7 @@
                     <form action="#" id="formPackage" method="POST" class="form-validate is-alter">
                         <input type="hidden" id="idPackage" name="id" value="">
                         <div class="row gx-4 gy-3">
-                            <div class="col-sm-6">
+                            {{-- <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label" for="inputCategory">Category</label>
                                         <div class="form-control-wrap">
@@ -88,7 +88,29 @@
                                             </ul>
                                         </div>
                                 </div>
+                            </div> --}}
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="inputTime">Time</label>
+                                    <div class="form-control-wrap">
+                                    <ul class="custom-control-group">
+                                        <li>
+                                            <div class="custom-control custom-radio custom-control-sm custom-control-pro">
+                                                <input type="radio" class="custom-control-input" id="radioSiang" name="time" value="siang">
+                                                <label for="radioSiang" class="custom-control-label">Siang</label>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="custom-control custom-radio custom-control-sm custom-control-pro">
+                                                <input type="radio" class="custom-control-input" id="radioMalam" name="time" value="malam">
+                                                <label for="radioMalam" class="custom-control-label">Malam</label>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-sm-6"></div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label" for="inputDuration">Duration <small>(per hour)</small></label>
@@ -109,25 +131,6 @@
                                         </div>
                                         <input type="number" class="form-control" name="price" id="inputPrice" placeholder="Price" required>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label" for="inputTime">Time</label>
-                                    <ul class="custom-control-group g-2 align-center flex-wrap mt-0">
-                                        <li>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="radioSiang" name="time" value="siang">
-                                                <label for="radioSiang" class="custom-control-label">Siang</label>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="radioMalam" name="time" value="malam">
-                                                <label for="radioMalam" class="custom-control-label">Malam</label>
-                                            </div>
-                                        </li>
-                                    </ul>
                                 </div>
                             </div>
                             <div class="col-sm-12">
